@@ -3,3 +3,5 @@ _build/xbox/gen/
 _build/PS3/USRDIR/gen/
 iso
 old
+/dependencies/riivolution-patch/riivolution/config
+/dependencies/riivolution-patch/gdrbul

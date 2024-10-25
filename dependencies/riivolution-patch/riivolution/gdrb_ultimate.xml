@@ -20,6 +20,6 @@
         <memory offset="0x8053894C" value="60000000" original="4BFE2FF5" />
         <memory offset="0x80538954" value="60000000" original="4BFE31F1" />
         <memory offset="0x80538964" value="60000000" original="4BFAFC59" />
-        <memory offset="0x807CB8E0" value="00000000" original="42500000" />
+        <memory offset="0x807CBF98" value="00000000" original="42500000" />
     </patch>
 </wiidisc>
