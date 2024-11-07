@@ -95,7 +95,11 @@
    ('ugc' 1)
    ('context' 2000)
    ('decade' 'the10s')
+   #ifdef HX_WII
    (downloaded TRUE)
+   #else
+   (bonus TRUE)
+   #endif
    ('base_points' 0)
    (
       'author'
@@ -218,7 +222,7 @@
    ('ugc' 1)
    ('context' 2000)
    ('decade' 'the10s')
-   #ifdef HX_WII (downloaded TRUE) #endif
+   #ifdef HX_WII (downloaded TRUE) #else (bonus TRUE) #endif
    ('base_points' 0)
    (
       'author'
@@ -341,7 +345,7 @@
    ('ugc' 1)
    ('context' 2000)
    ('decade' 'the10s')
-   #ifdef HX_WII (downloaded TRUE) #endif
+   #ifdef HX_WII (downloaded TRUE) #else (bonus TRUE) #endif
    ('base_points' 0)
 ;DO NOT EDIT THE FOLLOWING LINES MANUALLY
 ;Created using Onyx Music Game Toolkit version 20240418
@@ -420,6 +424,8 @@
    (decade 'the20s')
    #ifdef HX_WII
    (downloaded TRUE)
+   #else
+   (bonus TRUE)
    #endif
    (base_points 0)
    (vocal_tonic_note 9)    ; REQUIRED - VOX team - set this to correct note!
@@ -537,6 +543,8 @@
    ('decade' 'the10s')
    #ifdef HX_WII
    (downloaded TRUE)
+   #else
+   (bonus TRUE)
    #endif
    ('base_points' 0)
    (venue blank)
@@ -665,6 +673,8 @@
    ('decade' 'the10s')
    #ifdef HX_WII
    (downloaded TRUE)
+   #else
+   (bonus TRUE)
    #endif
    ('base_points' 0)
    (venue blank)
@@ -739,6 +749,8 @@
    (game_origin greenday)
    #ifdef HX_WII
    (downloaded TRUE)
+   #else
+   (bonus TRUE)
    #endif
    (rating 1)
    (date_released #ifdef HX_WII "1994-01-01" #else "1994-02-01" #endif)
@@ -807,6 +819,8 @@
    (game_origin greenday)
    #ifdef HX_WII
    (downloaded TRUE)
+   #else
+   (bonus TRUE)
    #endif
    (rating 1)
    (date_released
@@ -919,7 +933,7 @@
    ('ugc' 1)
    ('context' 2000)
    ('decade' 'the10s')
-   #ifdef HX_WII (downloaded TRUE) #endif
+   #ifdef HX_WII (downloaded TRUE) #else (bonus TRUE) #endif
    ('base_points' 0)
    (
       'author'
@@ -1042,7 +1056,7 @@
    ('ugc' 1)
    ('context' 2000)
    ('decade' 'the10s')
-   #ifdef HX_WII (downloaded TRUE) #endif
+   #ifdef HX_WII (downloaded TRUE) #else (bonus TRUE) #endif
    ('base_points' 0)
    (
       'author'
@@ -1165,7 +1179,7 @@
    ('ugc' 1)
    ('context' 2000)
    ('decade' 'the10s')
-   #ifdef HX_WII (downloaded TRUE) #endif
+   #ifdef HX_WII (downloaded TRUE) #else (bonus TRUE) #endif
    ('base_points' 0)
    (
       'author'
@@ -1288,7 +1302,7 @@
    ('ugc' 1)
    ('context' 2000)
    ('decade' 'the10s')
-   #ifdef HX_WII (downloaded TRUE) #endif
+   #ifdef HX_WII (downloaded TRUE) #else (bonus TRUE) #endif
    ('base_points' 0)
    (
       'author'
@@ -1410,7 +1424,7 @@
    ('ugc' 1)
    ('context' 2000)
    ('decade' 'the10s')
-   #ifdef HX_WII (downloaded TRUE) #endif
+   #ifdef HX_WII (downloaded TRUE) #else (bonus TRUE) #endif
    ('base_points' 0)
    (
       'author'
@@ -1533,7 +1547,7 @@
    ('ugc' 1)
    ('context' 2000)
    ('decade' 'the10s')
-   #ifdef HX_WII (downloaded TRUE) #endif
+   #ifdef HX_WII (downloaded TRUE) #else (bonus TRUE) #endif
    ('base_points' 0)
    (
       'author'
@@ -1656,7 +1670,7 @@
    ('ugc' 1)
    ('context' 2000)
    ('decade' 'the10s')
-   #ifdef HX_WII (downloaded TRUE) #endif
+   #ifdef HX_WII (downloaded TRUE) #else (bonus TRUE) #endif
    ('base_points' 0)
    (
       'author'
@@ -1780,7 +1794,7 @@
    ('ugc' 1)
    ('context' 2000)
    ('decade' 'the10s')
-   #ifdef HX_WII (downloaded TRUE) #endif
+   #ifdef HX_WII (downloaded TRUE) #else (bonus TRUE) #endif
    ('base_points' 0)
    (
       'author'
@@ -1903,7 +1917,7 @@
    ('ugc' 1)
    ('context' 2000)
    ('decade' 'the10s')
-   #ifdef HX_WII (downloaded TRUE) #endif
+   #ifdef HX_WII (downloaded TRUE) #else (bonus TRUE) #endif
    ('base_points' 0)
    (
       'author'
@@ -2019,7 +2033,7 @@
    ('ugc' 1)
    ('context' 2000)
    ('decade' 'the10s')
-   #ifdef HX_WII (downloaded TRUE) #endif
+   #ifdef HX_WII (downloaded TRUE) #else (bonus TRUE) #endif
    ('base_points' 0)
    (
       'author'
@@ -2141,7 +2155,7 @@
    ('ugc' 1)
    ('context' 2000)
    ('decade' 'the10s')
-   #ifdef HX_WII (downloaded TRUE) #endif
+   #ifdef HX_WII (downloaded TRUE) #else (bonus TRUE) #endif
    ('base_points' 0)
    (
       'author'
@@ -2264,7 +2278,7 @@
    ('ugc' 1)
    ('context' 2000)
    ('decade' 'the10s')
-   #ifdef HX_WII (downloaded TRUE) #endif
+   #ifdef HX_WII (downloaded TRUE) #else (bonus TRUE) #endif
    ('base_points' 0)
    (
       'author'
@@ -2387,7 +2401,7 @@
    ('ugc' 1)
    ('context' 2000)
    ('decade' 'the10s')
-   #ifdef HX_WII (downloaded TRUE) #endif
+   #ifdef HX_WII (downloaded TRUE) #else (bonus TRUE) #endif
    ('base_points' 0)
    (
       'author'
@@ -2510,7 +2524,7 @@
    ('ugc' 1)
    ('context' 2000)
    ('decade' 'the10s')
-   #ifdef HX_WII (downloaded TRUE) #endif
+   #ifdef HX_WII (downloaded TRUE) #else (bonus TRUE) #endif
    ('base_points' 0)
    (
       'author'
@@ -2632,7 +2646,7 @@
    ('ugc' 1)
    ('context' 2000)
    ('decade' 'the90s')
-   #ifdef HX_WII (downloaded TRUE) #endif
+   #ifdef HX_WII (downloaded TRUE) #else (bonus TRUE) #endif
    ('base_points' 0)
    (
       'author'
@@ -2756,7 +2770,7 @@
    ('ugc' 1)
    ('context' 2000)
    ('decade' 'the90s')
-   #ifdef HX_WII (downloaded TRUE) #endif
+   #ifdef HX_WII (downloaded TRUE) #else (bonus TRUE) #endif
    ('base_points' 0)
    (
       'author'
@@ -2879,7 +2893,7 @@
    ('ugc' 1)
    ('context' 2000)
    ('decade' 'the90s')
-   #ifdef HX_WII (downloaded TRUE) #endif
+   #ifdef HX_WII (downloaded TRUE) #else (bonus TRUE) #endif
    ('base_points' 0)
    (
       'author'
@@ -3001,7 +3015,7 @@
    ('ugc' 1)
    ('context' 2000)
    ('decade' 'the10s')
-   #ifdef HX_WII (downloaded TRUE) #endif
+   #ifdef HX_WII (downloaded TRUE) #else (bonus TRUE) #endif
    ('base_points' 0)
    (
       'author'
@@ -3125,7 +3139,7 @@
    ('ugc' 1)
    ('context' 2000)
    ('decade' 'the10s')
-   #ifdef HX_WII (downloaded TRUE) #endif
+   #ifdef HX_WII (downloaded TRUE) #else (bonus TRUE) #endif
    ('base_points' 0)
    (
       'author'
@@ -3248,7 +3262,7 @@
    ('ugc' 1)
    ('context' 2000)
    ('decade' 'the10s')
-   #ifdef HX_WII (downloaded TRUE) #endif
+   #ifdef HX_WII (downloaded TRUE) #else (bonus TRUE) #endif
    ('base_points' 0)
    (
       'author'
@@ -3368,7 +3382,7 @@
    ('ugc' 1)
    ('context' 2000)
    ('decade' 'the10s')
-   #ifdef HX_WII (downloaded TRUE) #endif
+   #ifdef HX_WII (downloaded TRUE) #else (bonus TRUE) #endif
    ('base_points' 0)
    (
       'author'
@@ -3491,7 +3505,7 @@
    ('ugc' 1)
    ('context' 2000)
    ('decade' 'the10s')
-   #ifdef HX_WII (downloaded TRUE) #endif
+   #ifdef HX_WII (downloaded TRUE) #else (bonus TRUE) #endif
    ('base_points' 0)
    (
       'author'
@@ -3614,7 +3628,7 @@
    ('ugc' 1)
    ('context' 2000)
    ('decade' 'the10s')
-   #ifdef HX_WII (downloaded TRUE) #endif
+   #ifdef HX_WII (downloaded TRUE) #else (bonus TRUE) #endif
    ('base_points' 0)
    (
       'author'
@@ -3737,7 +3751,7 @@
    ('ugc' 1)
    ('context' 2000)
    ('decade' 'the10s')
-   #ifdef HX_WII (downloaded TRUE) #endif
+   #ifdef HX_WII (downloaded TRUE) #else (bonus TRUE) #endif
    ('base_points' 0)
    (
       'author'
@@ -3860,7 +3874,7 @@
    ('ugc' 1)
    ('context' 2000)
    ('decade' 'the10s')
-   #ifdef HX_WII (downloaded TRUE) #endif
+   #ifdef HX_WII (downloaded TRUE) #else (bonus TRUE) #endif
    ('base_points' 0)
    (
       'author'
@@ -3983,7 +3997,7 @@
    ('ugc' 1)
    ('context' 2000)
    ('decade' 'the10s')
-   #ifdef HX_WII (downloaded TRUE) #endif
+   #ifdef HX_WII (downloaded TRUE) #else (bonus TRUE) #endif
    ('base_points' 0)
    (
       'author'
@@ -4105,7 +4119,7 @@
    ('ugc' 1)
    ('context' 2000)
    ('decade' 'the10s')
-   #ifdef HX_WII (downloaded TRUE) #endif
+   #ifdef HX_WII (downloaded TRUE) #else (bonus TRUE) #endif
    ('base_points' 0)
    (
       'author'
@@ -4228,7 +4242,7 @@
    ('ugc' 1)
    ('context' 2000)
    ('decade' 'the10s')
-   #ifdef HX_WII (downloaded TRUE) #endif
+   #ifdef HX_WII (downloaded TRUE) #else (bonus TRUE) #endif
    ('base_points' 0)
    (
       'author'
@@ -4351,7 +4365,7 @@
    ('ugc' 1)
    ('context' 2000)
    ('decade' 'the10s')
-   #ifdef HX_WII (downloaded TRUE) #endif
+   #ifdef HX_WII (downloaded TRUE) #else (bonus TRUE) #endif
    ('base_points' 0)
    (
       'author'
@@ -4474,7 +4488,7 @@
    ('ugc' 1)
    ('context' 2000)
    ('decade' 'the10s')
-   #ifdef HX_WII (downloaded TRUE) #endif
+   #ifdef HX_WII (downloaded TRUE) #else (bonus TRUE) #endif
    ('base_points' 0)
    (
       'author'
@@ -4597,7 +4611,7 @@
    ('ugc' 1)
    ('context' 2000)
    ('decade' 'the10s')
-   #ifdef HX_WII (downloaded TRUE) #endif
+   #ifdef HX_WII (downloaded TRUE) #else (bonus TRUE) #endif
    ('base_points' 0)
    (
       'author'
@@ -4720,7 +4734,7 @@
    ('ugc' 1)
    ('context' 2000)
    ('decade' 'the10s')
-   #ifdef HX_WII (downloaded TRUE) #endif
+   #ifdef HX_WII (downloaded TRUE) #else (bonus TRUE) #endif
    ('base_points' 0)
    (
       'author'
@@ -4842,7 +4856,7 @@
    ('ugc' 1)
    ('context' 2000)
    ('decade' 'the10s')
-   #ifdef HX_WII (downloaded TRUE) #endif
+   #ifdef HX_WII (downloaded TRUE) #else (bonus TRUE) #endif
    ('base_points' 0)
    (
       'author'
@@ -4969,7 +4983,7 @@
    ('ugc' 1)
    ('context' 2000)
    ('decade' 'the10s')
-   #ifdef HX_WII (downloaded TRUE) #endif
+   #ifdef HX_WII (downloaded TRUE) #else (bonus TRUE) #endif
    ('base_points' 0)
    (
       'author'
@@ -5092,7 +5106,7 @@
    ('ugc' 1)
    ('context' 2000)
    ('decade' 'the10s')
-   #ifdef HX_WII (downloaded TRUE) #endif
+   #ifdef HX_WII (downloaded TRUE) #else (bonus TRUE) #endif
    ('base_points' 0)
    (
       'author'
@@ -5215,7 +5229,7 @@
    ('ugc' 1)
    ('context' 2000)
    ('decade' 'the10s')
-   #ifdef HX_WII (downloaded TRUE) #endif
+   #ifdef HX_WII (downloaded TRUE) #else (bonus TRUE) #endif
    ('base_points' 0)
    (
       'author'
@@ -5338,7 +5352,7 @@
    ('ugc' 1)
    ('context' 2000)
    ('decade' 'the10s')
-   #ifdef HX_WII (downloaded TRUE) #endif
+   #ifdef HX_WII (downloaded TRUE) #else (bonus TRUE) #endif
    ('base_points' 0)
    (
       'author'
@@ -5461,7 +5475,7 @@
    ('ugc' 1)
    ('context' 2000)
    ('decade' 'the10s')
-   #ifdef HX_WII (downloaded TRUE) #endif
+   #ifdef HX_WII (downloaded TRUE) #else (bonus TRUE) #endif
    ('base_points' 0)
    (
       'author'
@@ -5584,7 +5598,7 @@
    ('ugc' 1)
    ('context' 2000)
    ('decade' 'the10s')
-   #ifdef HX_WII (downloaded TRUE) #endif
+   #ifdef HX_WII (downloaded TRUE) #else (bonus TRUE) #endif
    ('base_points' 0)
    (
       'author'
@@ -5707,7 +5721,7 @@
    ('ugc' 1)
    ('context' 2000)
    ('decade' 'the10s')
-   #ifdef HX_WII (downloaded TRUE) #endif
+   #ifdef HX_WII (downloaded TRUE) #else (bonus TRUE) #endif
    ('base_points' 0)
    (
       'author'
@@ -5830,7 +5844,7 @@
    ('ugc' 1)
    ('context' 2000)
    ('decade' 'the10s')
-   #ifdef HX_WII (downloaded TRUE) #endif
+   #ifdef HX_WII (downloaded TRUE) #else (bonus TRUE) #endif
    ('base_points' 0)
    (
       'author'
@@ -5953,7 +5967,7 @@
    ('ugc' 1)
    ('context' 2000)
    ('decade' 'the10s')
-   #ifdef HX_WII (downloaded TRUE) #endif
+   #ifdef HX_WII (downloaded TRUE) #else (bonus TRUE) #endif
    ('base_points' 0)
    (
       'author'
@@ -6076,7 +6090,7 @@
    ('ugc' 1)
    ('context' 2000)
    ('decade' 'the10s')
-   #ifdef HX_WII (downloaded TRUE) #endif
+   #ifdef HX_WII (downloaded TRUE) #else (bonus TRUE) #endif
    ('base_points' 0)
    (
       'author'
@@ -6199,7 +6213,7 @@
    ('ugc' 1)
    ('context' 2000)
    ('decade' 'the10s')
-   #ifdef HX_WII (downloaded TRUE) #endif
+   #ifdef HX_WII (downloaded TRUE) #else (bonus TRUE) #endif
    ('base_points' 0)
    (
       'author'
@@ -6322,7 +6336,7 @@
    ('ugc' 1)
    ('context' 2000)
    ('decade' 'the00s')
-   #ifdef HX_WII (downloaded TRUE) #endif
+   #ifdef HX_WII (downloaded TRUE) #else (bonus TRUE) #endif
    ('base_points' 0)
    (
       'author'
@@ -6445,7 +6459,7 @@
    ('ugc' 1)
    ('context' 2000)
    ('decade' 'the90s')
-   #ifdef HX_WII (downloaded TRUE) #endif
+   #ifdef HX_WII (downloaded TRUE) #else (bonus TRUE) #endif
    ('base_points' 0)
    (
       'author'
@@ -6571,7 +6585,7 @@
    ('ugc' 1)
    ('context' 2000)
    ('decade' 'the00s')
-   #ifdef HX_WII (downloaded TRUE) #endif
+   #ifdef HX_WII (downloaded TRUE) #else (bonus TRUE) #endif
    ('base_points' 0)
    (
       'author'
@@ -6694,7 +6708,7 @@
    ('ugc' 1)
    ('context' 2000)
    ('decade' 'the10s')
-   #ifdef HX_WII (downloaded TRUE) #endif
+   #ifdef HX_WII (downloaded TRUE) #else (bonus TRUE) #endif
    ('base_points' 0)
    (
       'author'
@@ -6813,7 +6827,7 @@
    ('ugc' 1)
    ('context' 2000)
    ('decade' 'the90s')
-   #ifdef HX_WII (downloaded TRUE) #endif
+   #ifdef HX_WII (downloaded TRUE) #else (bonus TRUE) #endif
    ('base_points' 0)
    (
       'author'
@@ -6936,7 +6950,7 @@
    ('ugc' 1)
    ('context' 2000)
    ('decade' 'the10s')
-   #ifdef HX_WII (downloaded TRUE) #endif
+   #ifdef HX_WII (downloaded TRUE) #else (bonus TRUE) #endif
    ('base_points' 0)
    (
       'author'
@@ -7059,7 +7073,7 @@
    ('ugc' 1)
    ('context' 2000)
    ('decade' 'the00s')
-   #ifdef HX_WII (downloaded TRUE) #endif
+   #ifdef HX_WII (downloaded TRUE) #else (bonus TRUE) #endif
    ('base_points' 0)
    (
       'author'
@@ -7183,7 +7197,7 @@
    ('ugc' 1)
    ('context' 2000)
    ('decade' 'the10s')
-   #ifdef HX_WII (downloaded TRUE) #endif
+   #ifdef HX_WII (downloaded TRUE) #else (bonus TRUE) #endif
    ('base_points' 0)
    (
       'author'
@@ -7306,7 +7320,7 @@
    ('ugc' 1)
    ('context' 2000)
    ('decade' 'the00s')
-   #ifdef HX_WII (downloaded TRUE) #endif
+   #ifdef HX_WII (downloaded TRUE) #else (bonus TRUE) #endif
    ('base_points' 0)
    (
       'author'
@@ -7424,7 +7438,7 @@
    ('ugc' 1)
    ('context' 2000)
    ('decade' 'the10s')
-   #ifdef HX_WII (downloaded TRUE) #endif
+   #ifdef HX_WII (downloaded TRUE) #else (bonus TRUE) #endif
    ('base_points' 0)
    (
       'author'
@@ -7542,7 +7556,7 @@
    ('ugc' 1)
    ('context' 2000)
    ('decade' 'the10s')
-   #ifdef HX_WII (downloaded TRUE) #endif
+   #ifdef HX_WII (downloaded TRUE) #else (bonus TRUE) #endif
    ('base_points' 0)
    (
       'author'
@@ -7653,7 +7667,7 @@
    ('ugc' 1)
    ('context' 2000)
    ('decade' 'the90s')
-   #ifdef HX_WII (downloaded TRUE) #endif
+   #ifdef HX_WII (downloaded TRUE) #else (bonus TRUE) #endif
    ('base_points' 0)
    (
       'author'
@@ -7776,7 +7790,7 @@
    ('ugc' 1)
    ('context' 2000)
    ('decade' 'the90s')
-   #ifdef HX_WII (downloaded TRUE) #endif
+   #ifdef HX_WII (downloaded TRUE) #else (bonus TRUE) #endif
    ('base_points' 0)
    (
       'author'
@@ -7899,7 +7913,7 @@
    ('ugc' 1)
    ('context' 2000)
    ('decade' 'the10s')
-   #ifdef HX_WII (downloaded TRUE) #endif
+   #ifdef HX_WII (downloaded TRUE) #else (bonus TRUE) #endif
    ('base_points' 0)
    (
       'author'
@@ -8022,7 +8036,7 @@
    ('ugc' 1)
    ('context' 2000)
    ('decade' 'the00s')
-   #ifdef HX_WII (downloaded TRUE) #endif
+   #ifdef HX_WII (downloaded TRUE) #else (bonus TRUE) #endif
    ('base_points' 0)
    (
       'author'
@@ -8144,7 +8158,7 @@
    ('ugc' 1)
    ('context' 2000)
    ('decade' 'the90s')
-   #ifdef HX_WII (downloaded TRUE) #endif
+   #ifdef HX_WII (downloaded TRUE) #else (bonus TRUE) #endif
    ('base_points' 0)
    (
       'author'
@@ -8267,7 +8281,7 @@
    ('ugc' 1)
    ('context' 2000)
    ('decade' 'the90s')
-   #ifdef HX_WII (downloaded TRUE) #endif
+   #ifdef HX_WII (downloaded TRUE) #else (bonus TRUE) #endif
    ('base_points' 0)
    (
       'author'
@@ -8390,7 +8404,7 @@
    ('ugc' 1)
    ('context' 2000)
    ('decade' 'the90s')
-   #ifdef HX_WII (downloaded TRUE) #endif
+   #ifdef HX_WII (downloaded TRUE) #else (bonus TRUE) #endif
    ('base_points' 0)
    (
       'author'
@@ -8509,7 +8523,7 @@
    ('ugc' 1)
    ('context' 2000)
    ('decade' 'the90s')
-   #ifdef HX_WII (downloaded TRUE) #endif
+   #ifdef HX_WII (downloaded TRUE) #else (bonus TRUE) #endif
    ('base_points' 0)
    (
       'author'
@@ -8632,7 +8646,7 @@
    ('ugc' 1)
    ('context' 2000)
    ('decade' 'the90s')
-   #ifdef HX_WII (downloaded TRUE) #endif
+   #ifdef HX_WII (downloaded TRUE) #else (bonus TRUE) #endif
    ('base_points' 0)
    (
       'author'
@@ -8755,7 +8769,7 @@
    ('ugc' 1)
    ('context' 2000)
    ('decade' 'the90s')
-   #ifdef HX_WII (downloaded TRUE) #endif
+   #ifdef HX_WII (downloaded TRUE) #else (bonus TRUE) #endif
    ('base_points' 0)
    (
       'author'
@@ -8878,7 +8892,7 @@
    ('ugc' 1)
    ('context' 2000)
    ('decade' 'the90s')
-   #ifdef HX_WII (downloaded TRUE) #endif
+   #ifdef HX_WII (downloaded TRUE) #else (bonus TRUE) #endif
    ('base_points' 0)
    (
       'author'
@@ -9001,7 +9015,7 @@
    ('ugc' 1)
    ('context' 2000)
    ('decade' 'the90s')
-   #ifdef HX_WII (downloaded TRUE) #endif
+   #ifdef HX_WII (downloaded TRUE) #else (bonus TRUE) #endif
    ('base_points' 0)
    (
       'author'
@@ -9125,7 +9139,7 @@
    ('ugc' 1)
    ('context' 2000)
    ('decade' 'the90s')
-   #ifdef HX_WII (downloaded TRUE) #endif
+   #ifdef HX_WII (downloaded TRUE) #else (bonus TRUE) #endif
    ('base_points' 0)
    (
       'author'
@@ -9248,7 +9262,7 @@
    ('ugc' 1)
    ('context' 2000)
    ('decade' 'the90s')
-   #ifdef HX_WII (downloaded TRUE) #endif
+   #ifdef HX_WII (downloaded TRUE) #else (bonus TRUE) #endif
    ('base_points' 0)
    (
       'author'
@@ -9371,7 +9385,7 @@
    ('ugc' 1)
    ('context' 2000)
    ('decade' 'the90s')
-   #ifdef HX_WII (downloaded TRUE) #endif
+   #ifdef HX_WII (downloaded TRUE) #else (bonus TRUE) #endif
    ('base_points' 0)
    (
       'author'
@@ -9494,7 +9508,7 @@
    ('ugc' 1)
    ('context' 2000)
    ('decade' 'the90s')
-   #ifdef HX_WII (downloaded TRUE) #endif
+   #ifdef HX_WII (downloaded TRUE) #else (bonus TRUE) #endif
    ('base_points' 0)
    (
       'author'
@@ -9617,7 +9631,7 @@
    ('ugc' 1)
    ('context' 2000)
    ('decade' 'the90s')
-   #ifdef HX_WII (downloaded TRUE) #endif
+   #ifdef HX_WII (downloaded TRUE) #else (bonus TRUE) #endif
    ('base_points' 0)
    (
       'author'
@@ -9741,7 +9755,7 @@
    ('ugc' 1)
    ('context' 2000)
    ('decade' 'the90s')
-   #ifdef HX_WII (downloaded TRUE) #endif
+   #ifdef HX_WII (downloaded TRUE) #else (bonus TRUE) #endif
    ('base_points' 0)
    (
       'author'
@@ -9863,7 +9877,7 @@
    ('ugc' 1)
    ('context' 2000)
    ('decade' 'the00s')
-   #ifdef HX_WII (downloaded TRUE) #endif
+   #ifdef HX_WII (downloaded TRUE) #else (bonus TRUE) #endif
    ('base_points' 0)
    (
       'author'
@@ -9986,7 +10000,7 @@
    ('ugc' 1)
    ('context' 2000)
    ('decade' 'the00s')
-   #ifdef HX_WII (downloaded TRUE) #endif
+   #ifdef HX_WII (downloaded TRUE) #else (bonus TRUE) #endif
    ('base_points' 0)
    (
       'author'
@@ -10109,7 +10123,7 @@
    ('ugc' 1)
    ('context' 2000)
    ('decade' 'the00s')
-   #ifdef HX_WII (downloaded TRUE) #endif
+   #ifdef HX_WII (downloaded TRUE) #else (bonus TRUE) #endif
    ('base_points' 0)
    (
       'author'
@@ -10232,7 +10246,7 @@
    ('ugc' 1)
    ('context' 2000)
    ('decade' 'the00s')
-   #ifdef HX_WII (downloaded TRUE) #endif
+   #ifdef HX_WII (downloaded TRUE) #else (bonus TRUE) #endif
    ('base_points' 0)
    (
       'author'
@@ -10355,7 +10369,7 @@
    ('ugc' 1)
    ('context' 2000)
    ('decade' 'the00s')
-   #ifdef HX_WII (downloaded TRUE) #endif
+   #ifdef HX_WII (downloaded TRUE) #else (bonus TRUE) #endif
    ('base_points' 0)
    (
       'author'
@@ -10478,7 +10492,7 @@
    ('ugc' 1)
    ('context' 2000)
    ('decade' 'the00s')
-   #ifdef HX_WII (downloaded TRUE) #endif
+   #ifdef HX_WII (downloaded TRUE) #else (bonus TRUE) #endif
    ('base_points' 0)
    (
       'author'
@@ -10601,7 +10615,7 @@
    ('ugc' 1)
    ('context' 2000)
    ('decade' 'the00s')
-   #ifdef HX_WII (downloaded TRUE) #endif
+   #ifdef HX_WII (downloaded TRUE) #else (bonus TRUE) #endif
    ('base_points' 0)
    (
       'author'
@@ -10724,7 +10738,7 @@
    ('ugc' 1)
    ('context' 2000)
    ('decade' 'the00s')
-   #ifdef HX_WII (downloaded TRUE) #endif
+   #ifdef HX_WII (downloaded TRUE) #else (bonus TRUE) #endif
    ('base_points' 0)
    (
       'author'
@@ -10847,7 +10861,7 @@
    ('ugc' 1)
    ('context' 2000)
    ('decade' 'the00s')
-   #ifdef HX_WII (downloaded TRUE) #endif
+   #ifdef HX_WII (downloaded TRUE) #else (bonus TRUE) #endif
    ('base_points' 0)
    (
       'author'
@@ -10970,7 +10984,7 @@
    ('ugc' 1)
    ('context' 2000)
    ('decade' 'the00s')
-   #ifdef HX_WII (downloaded TRUE) #endif
+   #ifdef HX_WII (downloaded TRUE) #else (bonus TRUE) #endif
    ('base_points' 0)
    (
       'author'
@@ -11092,7 +11106,7 @@
    ('ugc' 1)
    ('context' 2000)
    ('decade' 'the90s')
-   #ifdef HX_WII (downloaded TRUE) #endif
+   #ifdef HX_WII (downloaded TRUE) #else (bonus TRUE) #endif
    ('base_points' 0)
    (
       'author'
@@ -11215,7 +11229,7 @@
    ('ugc' 1)
    ('context' 2000)
    ('decade' 'the90s')
-   #ifdef HX_WII (downloaded TRUE) #endif
+   #ifdef HX_WII (downloaded TRUE) #else (bonus TRUE) #endif
    ('base_points' 0)
    (
       'author'
@@ -11338,7 +11352,7 @@
    ('ugc' 1)
    ('context' 2000)
    ('decade' 'the90s')
-   #ifdef HX_WII (downloaded TRUE) #endif
+   #ifdef HX_WII (downloaded TRUE) #else (bonus TRUE) #endif
    ('base_points' 0)
    (
       'author'
@@ -11461,7 +11475,7 @@
    ('ugc' 1)
    ('context' 2000)
    ('decade' 'the90s')
-   #ifdef HX_WII (downloaded TRUE) #endif
+   #ifdef HX_WII (downloaded TRUE) #else (bonus TRUE) #endif
    ('base_points' 0)
    (
       'author'
@@ -11584,7 +11598,7 @@
    ('ugc' 1)
    ('context' 2000)
    ('decade' 'the90s')
-   #ifdef HX_WII (downloaded TRUE) #endif
+   #ifdef HX_WII (downloaded TRUE) #else (bonus TRUE) #endif
    ('base_points' 0)
    (
       'author'
@@ -11707,7 +11721,7 @@
    ('ugc' 1)
    ('context' 2000)
    ('decade' 'the90s')
-   #ifdef HX_WII (downloaded TRUE) #endif
+   #ifdef HX_WII (downloaded TRUE) #else (bonus TRUE) #endif
    ('base_points' 0)
    (
       'author'
@@ -11830,7 +11844,7 @@
    ('ugc' 1)
    ('context' 2000)
    ('decade' 'the90s')
-   #ifdef HX_WII (downloaded TRUE) #endif
+   #ifdef HX_WII (downloaded TRUE) #else (bonus TRUE) #endif
    ('base_points' 0)
    (
       'author'
@@ -11953,7 +11967,7 @@
    ('ugc' 1)
    ('context' 2000)
    ('decade' 'the90s')
-   #ifdef HX_WII (downloaded TRUE) #endif
+   #ifdef HX_WII (downloaded TRUE) #else (bonus TRUE) #endif
    ('base_points' 0)
    (
       'author'
@@ -12076,7 +12090,7 @@
    ('ugc' 1)
    ('context' 2000)
    ('decade' 'the90s')
-   #ifdef HX_WII (downloaded TRUE) #endif
+   #ifdef HX_WII (downloaded TRUE) #else (bonus TRUE) #endif
    ('base_points' 0)
    (
       'author'
@@ -12199,7 +12213,7 @@
    ('ugc' 1)
    ('context' 2000)
    ('decade' 'the90s')
-   #ifdef HX_WII (downloaded TRUE) #endif
+   #ifdef HX_WII (downloaded TRUE) #else (bonus TRUE) #endif
    ('base_points' 0)
    (
       'author'
@@ -12322,7 +12336,7 @@
    ('ugc' 1)
    ('context' 2000)
    ('decade' 'the90s')
-   #ifdef HX_WII (downloaded TRUE) #endif
+   #ifdef HX_WII (downloaded TRUE) #else (bonus TRUE) #endif
    ('base_points' 0)
    (
       'author'

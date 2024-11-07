@@ -51,7 +51,7 @@
    (rating 2)
    (short_version 125097)
    (song_length 327727)
-   (downloaded TRUE)
+   (bonus TRUE)
    (alternate_path
       "songs/")
    (album_art TRUE)
@@ -119,7 +119,7 @@
    (rating 2)
    (short_version 125422)
    (song_length 197272)
-   (downloaded TRUE)
+   (bonus TRUE)
    (alternate_path
       "songs/")
    (year_released 2009)
@@ -186,7 +186,7 @@
    (rating 2)
    (short_version 134228)
    (song_length 235000)
-   (downloaded TRUE)
+   (bonus TRUE)
    (alternate_path
       "songs/")
    (album_art TRUE)
@@ -256,7 +256,7 @@
    (rating 2)
    (short_version 125097)
    (song_length 267272)
-   (downloaded TRUE)
+   (bonus TRUE)
    (alternate_path
       "songs/")
    (album_art TRUE)
@@ -324,7 +324,7 @@
    (rating 2)
    (short_version 103932)
    (song_length 194545)
-   (downloaded TRUE)
+   (bonus TRUE)
    (alternate_path
       "songs/")
    (album_art TRUE)
@@ -394,7 +394,7 @@
    (rating 2)
    (short_version 139493)
    (song_length 210454)
-   (downloaded TRUE)
+   (bonus TRUE)
    (alternate_path
       "songs/")
    (album_art TRUE)

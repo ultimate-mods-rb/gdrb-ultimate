@@ -194,6 +194,10 @@
 
 {platform_mgr set_notify_ui_location kOSNotifyBottomCenter}
 {set $saveload_skip_upload FALSE}
+
+#define GDRBU
+(1)
+
 #endif
 
 #ifndef HX_WII
