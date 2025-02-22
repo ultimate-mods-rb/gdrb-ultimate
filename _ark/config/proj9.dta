@@ -80,7 +80,7 @@
    #include net.dta)
 (objects
    #include objects.dta)
-(locale ../ui/locale/eng/locale.dta ../ui/locale/eng/locale_updates.dta)
+(locale ../ui/locale/eng/locale.dta ../ulti/locale/locale_mod.dta ../ulti/locale/eng/locale_mod.dta)
 (venues VENUES)
 (song_select
    (alpha_shortcuts '123' A B C D E F G H I J K L M N O P Q R S T U V W X Y Z))
