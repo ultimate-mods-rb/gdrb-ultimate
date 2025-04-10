@@ -1,3 +1,5 @@
+### This branch has been deserted as it's too messy to continue working on ###
+
 # Green Day Rock Band Ultimate
 
 Join the ultimate mods [Discord server](https://discord.gg/ht7XUfBXdB)
