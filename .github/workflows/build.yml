@@ -18,9 +18,9 @@ jobs:
         id: get_commit
         run: echo "COMMIT_SHA=$(git rev-parse --short HEAD)" >> $GITHUB_ENV
 
-      - name: Replace DEVBUILD with commit SHA in locale
+      - name: Replace LOCALBUILD with commit SHA in locale
         run: |
-          sed -i 's/DEVBUILD/${{ env.COMMIT_SHA }}/g' _ark/ulti/locale_mod.dta
+          sed -i 's/LOCALBUILD/${{ env.COMMIT_SHA }}/g' _ark/ulti/locale_mod.dta
         env:
           COMMIT_SHA: ${{ env.COMMIT_SHA }}
       - name: Remove PS3 and Wii files
@@ -52,9 +52,9 @@ jobs:
         id: get_commit
         run: echo "COMMIT_SHA=$(git rev-parse --short HEAD)" >> $GITHUB_ENV
 
-      - name: Replace DEVBUILD with commit SHA in locale
+      - name: Replace LOCALBUILD with commit SHA in locale
         run: |
-          sed -i 's/DEVBUILD/${{ env.COMMIT_SHA }}/g' _ark/ulti/locale_mod.dta
+          sed -i 's/LOCALBUILD/${{ env.COMMIT_SHA }}/g' _ark/ulti/locale_mod.dta
         env:
           COMMIT_SHA: ${{ env.COMMIT_SHA }}
       - name: Remove Xbox and Wii files
@@ -86,9 +86,9 @@ jobs:
         id: get_commit
         run: echo "COMMIT_SHA=$(git rev-parse --short HEAD)" >> $GITHUB_ENV
 
-      - name: Replace DEVBUILD with commit SHA in locale
+      - name: Replace LOCALBUILD with commit SHA in locale
         run: |
-          sed -i 's/DEVBUILD/${{ env.COMMIT_SHA }}/g' _ark/ulti/locale_mod.dta
+          sed -i 's/LOCALBUILD/${{ env.COMMIT_SHA }}/g' _ark/ulti/locale_mod.dta
         env:
           COMMIT_SHA: ${{ env.COMMIT_SHA }}
       - name: Remove Xbox and PS3 files
@@ -136,9 +136,9 @@ jobs:
         id: get_commit
         run: echo "COMMIT_SHA=$(git rev-parse --short HEAD)" >> $GITHUB_ENV
 
-      - name: Replace DEVBUILD with commit SHA in locale
+      - name: Replace LOCALBUILD with commit SHA in locale
         run: |
-          sed -i 's/DEVBUILD/${{ env.COMMIT_SHA }}/g' _ark/ulti/locale_mod.dta
+          sed -i 's/LOCALBUILD/${{ env.COMMIT_SHA }}/g' _ark/ulti/locale_mod.dta
       - name: Remove Xbox and PS3 files
         run: |
           find . -name "*.*_xbox" -type f -delete
