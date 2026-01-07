@@ -1,51 +1,116 @@
 #!/bin/bash
+set -euo pipefail
 
-# Set a variable to track whether the ARK build failed
+# ---------- Config ----------
+PWD_ROOT="$(pwd)"
+ARKHELPER_PATH=""
 FAILED_ARK_BUILD=0
 
-# Set the path to wit and arkhelper
-WIT_PATH="$PWD/dependencies/wit/wit"
-ARKHELPER_PATH="$PWD/dependencies/arkhelper"
+EXCLUDES=( "*.*_xbox" "*.xbv" "*.*_ps3" "*_out*" "*_dbg.milo*" "*_rt.milo*" "*.bak" "*.png" "*.jpg" "*.dds" "*.sh" "*.py")
 
-# Extract ISO using wit
-"$WIT_PATH" extract "$PWD/iso" "$PWD/_build/wii"
+TEMP_ARK="$PWD_ROOT/_temp_ark_wii"
+
+SOURCES=( "$PWD_ROOT/_ark::." "$PWD_ROOT/_songs/songs_wii::songs" )
+
+# Build output location
+OUT_DIR="$PWD_ROOT/_build/wii/files/gen"
+
+# ---------- Platform / arkhelper selection ----------
+case "$(uname -s)" in
+    Darwin)
+        echo "Running for macOS"
+        WIT_PATH="$(pwd)/dependencies/wit/wit_macos"
+        ARKHELPER_PATH="$PWD_ROOT/dependencies/macos/arkhelper"
+        ;;
+    MINGW*|MSYS*|CYGWIN*)
+        echo "Running for Windows"
+        WIT_PATH="$(pwd)/dependencies/wit/wit"
+        ARKHELPER_PATH="$PWD_ROOT/dependencies/arkhelper"
+        ;;
+    *)
+        echo "Running for Linux"
+        WIT_PATH="$(pwd)/dependencies/wit/wit"
+        ARKHELPER_PATH="$PWD_ROOT/dependencies/linux/arkhelper"
+        ;;
+esac
+
+if [[ ! -d "$PWD/_build/wii" ]]; then
+    # Extract ISO using wit
+    "$WIT_PATH" extract "$PWD/iso" "$PWD/_build/wii"
+fi
 
 # Copy patched main.dol and setup.txt
 cp -rf "$PWD/dependencies/patch/main.dol" "$PWD/_build/wii/sys"
 cp -rf "$PWD/dependencies/patch/setup.txt" "$PWD/_build/wii"
 
-# Copy main_wii.hdr to appropriate directory in case of old tbrbu build
-cp "$PWD/_build/wii_rebuild_files/main_wii.hdr" "$PWD/_build/wii/files/gen"
+# ---------- Helpers ----------
+should_exclude() {
+    local rel="$1" name="$2"
+    for pat in "${EXCLUDES[@]}"; do
+        if [[ "$name" == $pat ]] || [[ "$rel" == $pat ]]; then
+            return 0
+        fi
+    done
+    return 1
+}
 
-# Remove main_wii_10.ark to save space
-rm "$PWD/_build/wii/files/gen/main_wii_10.ark" 2> /dev/null
+cleanup() {
+    if [[ -d "$TEMP_ARK" ]]; then
+        rm -rf "$TEMP_ARK"
+    fi
+}
+trap cleanup EXIT
 
-# Temporarily move Xbox and Wii files out of the ARK path to reduce final ARK size
-#echo
-#echo "Temporarily moving Xbox and PS3 files out of the ark path to reduce final ARK size"
-#find "$PWD/_ark" \( -name "*.milo_xbox" -o -name "*.png_xbox" -o -name "*.bmp_xbox" -o -name "*.milo_ps3" -o -name "*.png_ps3" -o -name "*.bmp_ps3" \) -exec mv -t "$PWD/_temp/_ark" {} +
+# ---------- Create temp copy ----------
+echo "Creating temporary copy at: $TEMP_ARK"
+rm -rf "$TEMP_ARK"
+mkdir -p "$TEMP_ARK"
 
-# Create patched files using arkhelper
-"$ARKHELPER_PATH" dir2ark "$PWD/_ark" "$PWD/_build/wii/files/gen" -n "patch_wii" -e -v 5 -s 4073741823 >/dev/null 2>&1
-if [ $? -ne 0 ]; then
+for mapping in "${SOURCES[@]}"; do
+    src_root="${mapping%%::*}"
+    dest_sub="${mapping##*::}"
+
+    if [[ "$dest_sub" == "." ]]; then
+        dest_root="$TEMP_ARK"
+    else
+        dest_root="$TEMP_ARK/$dest_sub"
+    fi
+    mkdir -p "$dest_root"
+
+    while IFS= read -r -d '' src; do
+        rel="${src#$src_root/}"
+        name="$(basename "$src")"
+        dest_path="$dest_root/$rel"
+
+        if should_exclude "$rel" "$name"; then
+            continue
+        fi
+
+        if [[ -d "$src" ]]; then
+            mkdir -p "$dest_path"
+        else
+            mkdir -p "$(dirname "$dest_path")"
+            cp -a "$src" "$dest_path"
+        fi
+    done < <(find "$src_root" -mindepth 1 -print0)
+done
+
+# ---------- Run arkhelper ----------
+echo
+echo "Building Wii ARK from $TEMP_ARK -> $OUT_DIR"
+if ! "$ARKHELPER_PATH" dir2ark "$TEMP_ARK" "$OUT_DIR" -n "patch_wii" -e -v 5 -s 4073741823; then
     FAILED_ARK_BUILD=1
 fi
 
-# Moving back Xbox files
-#echo
-#echo "Moving back Xbox files"
-#find "$PWD/_temp/_ark" \( -name "*.milo_xbox" -o -name "*.png_xbox" -o -name "*.bmp_xbox" -o -name "*.milo_ps3" -o -name "*.png_ps3" -o -name "*.bmp_ps3" \) -exec mv -t "$PWD/_ark" {} + 2> /dev/null
-
-# Extract ISO using wit
+# make wbfs
 "$WIT_PATH" copy "$PWD/_build/wii" "$PWD/iso/GDRB Ultimate.wbfs"
 
-# Check if the ARK build failed and provide appropriate message
-echo
-if [ "$FAILED_ARK_BUILD" -ne 1 ]; then
-    echo "Successfully built Green Day Rock Band Ultimate ARK files. A wbfs file has been generate in the iso folder"
-else
-    echo "Error building ARK. Download the repo again or some dta file is bad p.s turn echo on to see what arkhelper says"
-fi
+# (cleanup will run via trap)
 
-# Pause to keep terminal open
-read -p "Press Enter to continue..."
+# ---------- Result message ----------
+echo
+if [[ "$FAILED_ARK_BUILD" -ne 1 ]]; then
+    echo "Successfully built Green Day Rock Band Ultimate WBFS file."
+else
+    echo "Error building ARK."
+fi

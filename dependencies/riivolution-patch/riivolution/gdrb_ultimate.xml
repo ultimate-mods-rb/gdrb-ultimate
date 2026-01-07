@@ -1,0 +1,25 @@
+<wiidisc version="1">
+    <id game="R36" />
+    <options>
+        <section name="GDRB Ultimate">
+            <option name="Enable GDRB Ultimate">
+                <choice name="Enabled" default="1">
+                    <patch id="gdrbul" />
+                </choice>
+            </option>
+        </section>
+    </options>
+    <patch id="gdrbul">
+        <file disc="/gen/patch_wii.hdr" external="/gdrbul/patch_wii.hdr" create="true"></file>
+        <file disc="/gen/patch_wii_0.ark" external="/gdrbul/patch_wii_0.ark" create="true"></file>
+
+        <!-- strum limit patch -->
+        <memory offset="0x807CBF98" value="00000000"/>
+
+        <!-- checksum patches -->
+        <!-- StreamChecksum::SetFileChecksum -->
+        <memory offset="0x80538808" value="4E800020"/>
+        <!-- StreamChecksum::ValidateChecksum -->
+        <memory offset="0x805388E0" value="4E800020"/>
+    </patch>
+</wiidisc>

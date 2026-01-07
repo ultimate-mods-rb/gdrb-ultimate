@@ -5,6 +5,6 @@ disc-type = Wii
 image-type = WBFS
 
 part-id = R36E69
-part-name = Rockport Green Ultimate
+part-name = Green Day Rock Band Ultimate
 part-offset = 0xf800000
 

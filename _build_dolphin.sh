@@ -1,41 +1,113 @@
 #!/bin/bash
+set -euo pipefail
 
-# Set the path to wit and arkhelper
-WIT_PATH="$PWD/dependencies/wit/wit"
-ARKHELPER_PATH="$PWD/dependencies/arkhelper"
+# ---------- Config ----------
+PWD_ROOT="$(pwd)"
+ARKHELPER_PATH=""
+FAILED_ARK_BUILD=0
 
-# Extract ISO using wit
-"$WIT_PATH" extract "$PWD/iso" "$PWD/_build/wii"
+EXCLUDES=( "*.*_xbox" "*.xbv" "*.*_ps3" "*_out*" "*_dbg.milo*" "*_rt.milo*" "*.bak" "*.png" "*.jpg" "*.dds" "*.sh" "*.py")
 
-# Remove unnecessary files
-rm "$PWD/_build/wii/sys/main.dol"
-rm "$PWD/_build/wii/setup.txt"
+TEMP_ARK="$PWD_ROOT/_temp_ark_wii"
+
+SOURCES=( "$PWD_ROOT/_ark::." "$PWD_ROOT/_songs/songs_wii::songs" )
+
+# Build output location
+OUT_DIR="$PWD_ROOT/_build/wii/files/gen"
+
+# ---------- Platform / arkhelper selection ----------
+case "$(uname -s)" in
+    Darwin)
+        echo "Running for macOS"
+        WIT_PATH="$(pwd)/dependencies/wit/wit_macos"
+        ARKHELPER_PATH="$PWD_ROOT/dependencies/macos/arkhelper"
+        ;;
+    MINGW*|MSYS*|CYGWIN*)
+        echo "Running for Windows"
+        WIT_PATH="$(pwd)/dependencies/wit/wit"
+        ARKHELPER_PATH="$PWD_ROOT/dependencies/arkhelper"
+        ;;
+    *)
+        echo "Running for Linux"
+        WIT_PATH="$(pwd)/dependencies/wit/wit"
+        ARKHELPER_PATH="$PWD_ROOT/dependencies/linux/arkhelper"
+        ;;
+esac
+
+if [[ ! -d "$PWD/_build/wii" ]]; then
+    # Extract ISO using wit
+    "$WIT_PATH" extract "$PWD/iso" "$PWD/_build/wii"
+fi
 
 # Copy patched main.dol and setup.txt
-cp "$PWD/dependencies/patch/main.dol" "$PWD/_build/wii/sys"
-cp "$PWD/dependencies/patch/setup.txt" "$PWD/_build/wii"
+cp -rf "$PWD/dependencies/patch/main.dol" "$PWD/_build/wii/sys"
+cp -rf "$PWD/dependencies/patch/setup.txt" "$PWD/_build/wii"
 
-# Copy main_wii.hdr to appropriate directory
-cp "$PWD/_build/wii_rebuild_files/main_wii.hdr" "$PWD/_build/wii/files/gen"
+# ---------- Helpers ----------
+should_exclude() {
+    local rel="$1" name="$2"
+    for pat in "${EXCLUDES[@]}"; do
+        if [[ "$name" == $pat ]] || [[ "$rel" == $pat ]]; then
+            return 0
+        fi
+    done
+    return 1
+}
 
-# Remove previous main_wii_10.ark
-rm "$PWD/_build/wii/files/gen/main_wii_10.ark"
+cleanup() {
+    if [[ -d "$TEMP_ARK" ]]; then
+        rm -rf "$TEMP_ARK"
+    fi
+}
+trap cleanup EXIT
 
-# Create patched files using arkhelper
-"$ARKHELPER_PATH" patchcreator -a "$PWD/_ark" -o "$PWD/_build/wii/files/gen" "$PWD/_build/wii/files/gen/main_wii.hdr"
+# ---------- Create temp copy ----------
+echo "Creating temporary copy at: $TEMP_ARK"
+rm -rf "$TEMP_ARK"
+mkdir -p "$TEMP_ARK"
 
-# Move generated files to proper location
-mv "$PWD/_build/wii/files/gen/gen/main_wii.hdr" "$PWD/_build/wii/files/gen"
-mv "$PWD/_build/wii/files/gen/gen/main_wii_10.ark" "$PWD/_build/wii/files/gen"
+for mapping in "${SOURCES[@]}"; do
+    src_root="${mapping%%::*}"
+    dest_sub="${mapping##*::}"
 
-# Remove temporary directory
-rmdir "$PWD/_build/wii/files/gen/gen"
+    if [[ "$dest_sub" == "." ]]; then
+        dest_root="$TEMP_ARK"
+    else
+        dest_root="$TEMP_ARK/$dest_sub"
+    fi
+    mkdir -p "$dest_root"
 
-# Message indicating patchcreator sux
-echo "Please ignore the random error it's fine"
+    while IFS= read -r -d '' src; do
+        rel="${src#$src_root/}"
+        name="$(basename "$src")"
+        dest_path="$dest_root/$rel"
 
-# Message indicating successful build
-echo "GDRB ultimate should've successfully built. Make sure to add _build/wii as a game path in Dolphin and enable search subfolders so it will show up. Enjoy :)"
+        if should_exclude "$rel" "$name"; then
+            continue
+        fi
 
-# Pause to keep terminal open
-read -p "Press Enter to continue..."
+        if [[ -d "$src" ]]; then
+            mkdir -p "$dest_path"
+        else
+            mkdir -p "$(dirname "$dest_path")"
+            cp -a "$src" "$dest_path"
+        fi
+    done < <(find "$src_root" -mindepth 1 -print0)
+done
+
+# ---------- Run arkhelper ----------
+echo
+echo "Building Wii ARK from $TEMP_ARK -> $OUT_DIR"
+if ! "$ARKHELPER_PATH" dir2ark "$TEMP_ARK" "$OUT_DIR" -n "patch_wii" -e -v 5 -s 4073741823; then
+    FAILED_ARK_BUILD=1
+fi
+
+# (cleanup will run via trap)
+
+# ---------- Result message ----------
+echo
+if [[ "$FAILED_ARK_BUILD" -ne 1 ]]; then
+    echo "Successfully built Green Day Rock Band Ultimate ARK files."
+else
+    echo "Error building ARK."
+fi
