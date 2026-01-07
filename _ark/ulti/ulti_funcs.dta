@@ -1,0 +1,615 @@
+{func set_var
+   ($var $in)
+   {eval {` {set {, {var $var}} $in}}}
+}
+{func eval_var
+   ($var)
+   {eval {var $var}}
+}
+{func toggle_var
+   ($var)
+   {eval {` {set {, {var $var}} {! {eval_var $var}}}}}
+}
+{func lst_reset {do
+   ($array {array 0})
+   {foreach $entry {$this get data}
+      {if_else {== {type $entry} kDataArray} ; just return whatever was passed if not array
+         {switch {elem {find $entry type} 1}
+            (uNormal
+               {push_back $array {eval {elem $entry 0}}}
+            )
+            (uOnOFF
+               {push_back $array
+                  {sprintf
+                     {localize os_onoff_fmt}
+                     {localize {elem $entry 0}}
+                     {localize {if_else {eval {elem {find $entry bool} 1}} on off}}
+                  }
+               }
+            )
+            ((uSld uFakeSld)
+               {push_back $array
+                  {sprintf
+                     {localize {elem $entry 0}}
+                     {switch {elem {find $entry fmt_type} 1}
+                        (uNormal {eval_var {elem {find $entry var} 1}})
+                        (uColor
+                           {localize
+                              {switch {eval_var {elem {find $entry var} 1}}
+                                 (0 color_green)
+                                 (1 color_red)
+                                 (2 color_yellow)
+                                 (3 color_blue)
+                                 (4 color_orange)
+                                 invalid
+                              }
+                           }
+                        )
+                        (uDrumColor
+                           {localize
+                              {switch {eval_var {elem {find $entry var} 1}}
+                                 (0 kick)
+                                 (1 color_red)
+                                 (2 color_yellow)
+                                 (3 color_blue)
+                                 (4 color_green)
+                                 invalid
+                              }
+                           }
+                        )
+                        (uCunt
+                           {localize
+                              {switch {eval_var {elem {find $entry var} 1}}
+                                 (kPad_L2 os_pad_l2)
+                                 (kPad_L1 os_pad_l1)
+                                 (kPad_R1 os_pad_r1)
+                                 (kPad_R2 os_pad_r2)
+                                 (kPad_X os_pad_x)
+                                 (kPad_Circle os_pad_circle)
+                                 (kPad_Square os_pad_square)
+                                 (kPad_Tri os_pad_tri)
+                                 (kPad_DUp os_pad_dup)
+                                 (kPad_DDown os_pad_ddown)
+                                 (kPad_DLeft os_pad_dleft)
+                                 (kPad_DRight os_pad_dright)
+                                 (kPad_L3 os_pad_l3)
+                                 (kPad_R3 os_pad_r3)
+                                 (kPad_Select os_pad_select)
+                                 invalid
+                              }
+                           }
+                        )
+                        (uSync
+                           {localize
+                              {switch {eval_var {elem {find $entry var} 1}}
+                                 (0 infinite)
+                                 (1 full)
+                                 (2 half)
+                                 (4 quarter)
+                                 invalid
+                              }
+                           }
+                        )
+                        (uInst
+                           {localize
+                              {switch {eval_var {elem {find $entry var} 1}}
+                                 (kControllerGuitar guitar_sym)
+                                 (kControllerDrum drum_sym)
+                                 (kControllerVocals vocals_sym)
+                                 invalid
+                              }
+                           }
+                        )
+                        (uMapping
+                           {localize
+                              {switch {eval_var {elem {find $entry var} 1}}
+                                 (0 custom)
+                                 (1 guitar_sym)
+                                 (2 gh_guitar)
+                                 (3 ps2_guitar)
+                                 (4 drum_sym)
+                                 invalid
+                              }
+                           }
+                        )
+                        (uSpeed {int {+ {* {eval_var {elem {find $entry var} 1}} 100} 0.5}})
+                     }
+                  }
+               }
+            )
+            #ifdef _SHIP
+            {exit}
+            #else
+            {fail {sprint {elem {find $entry type} 1} " is an unknown type"}}
+            #endif
+         }
+         {push_back $array {eval $entry}}
+      }
+   }
+   {OS_LIST set_data $array}
+   {if {$this has (pos)}
+      {OS_LIST set_selected {elem [pos] 0} {elem [pos] 1}}
+   }
+   {os_update_helpbar}
+}}
+{func os_setup_common
+   {title.lbl set text_token [title]}
+   {lst_reset}
+}
+{func os_sel_common {do
+   ($entry {elem [data] {OS_LIST selected_pos}})
+   {if_else
+      {&&
+         {== {type $entry} kDataArray}
+         {!
+            {do
+               ($block {find_exists $entry block_ingame})
+               ($bool)
+               {if {&& $block {exists beatmatch}}
+                  {set $bool {elem $block 1}}
+               }
+               $bool
+            }
+         }
+      }
+      {do
+         {switch {elem {find $entry type} 1}
+            ((uNormal uOnOFF)
+               {foreach $cmd {find $entry sel_script}
+                  {eval $cmd}
+               }
+            )
+            ((uSld uFakeSld)
+               {$this set focused TRUE}
+               {$this set store {eval_var {elem {find $entry var} 1}}}
+            )
+         }
+      }
+      {play_instr_sfx $user button_error}
+   }}
+   {lst_reset}
+}
+{func os_down_common {do
+   ($entry {elem [data] {OS_LIST selected_pos}})
+   {if_else {== {type $entry} kDataArray}
+      {switch {elem {find $entry type} 1}
+         ((uSld uFakeSld)
+            {if_else {&& {$this has (focused)} [focused]}
+               {switch $action
+                  (kAction_Confirm
+                     {play_instr_sfx $user button_select}
+                     {$this set focused FALSE}
+                     {set [store] 0}
+                     {os_update_helpbar}
+                  )
+                  (kAction_Cancel
+                     {play_instr_sfx $user button_back}
+                     {$this set focused FALSE}
+                     {set_var {elem {find $entry var} 1} [store]}
+                     {set [store] 0}
+                     {lst_reset}
+                  )
+                  ((kAction_Up kAction_Left)
+                     {play_instr_sfx $user button_toggle}
+                     {set_var {elem {find $entry var} 1}
+                        {if_else {== {elem {find $entry type} 1} uSld}
+                           {clamp
+                              {- {eval_var {elem {find $entry var} 1}}
+                                 {elem {find $entry step} 1}
+                              }
+                              {elem {find $entry range} 1}
+                              {elem {find $entry range} 2}
+                           }
+                           {prev_elem
+                              {eval {elem {find $entry array} 1}}
+                              {eval_var {elem {find $entry var} 1}}
+                           }
+                        }
+                     }
+                     {lst_reset}
+                  )
+                  ((kAction_Down kAction_Right)
+                     {play_instr_sfx $user button_toggle}
+                     {set_var {elem {find $entry var} 1}
+                        {if_else {== {elem {find $entry type} 1} uSld}
+                           {clamp
+                              {+ {eval_var {elem {find $entry var} 1}}
+                                 {elem {find $entry step} 1}
+                              }
+                              {elem {find $entry range} 1}
+                              {elem {find $entry range} 2}
+                           }
+                           {next_elem
+                              {eval {elem {find $entry array} 1}}
+                              {eval_var {elem {find $entry var} 1}}
+                           }
+                        }
+                     }
+                     {lst_reset}
+                  )
+               }
+               {os_unhandled_down}
+            }
+         )
+         {os_unhandled_down}
+      }
+      {os_unhandled_down}
+   }}
+}
+{func os_unhandled_down
+   {if
+      {&&
+         {== $action kAction_Cancel}
+         {$this has (pos)}
+      }
+      {set [pos] (0 0)}
+   }
+   kDataUnhandled
+}
+{func os_update_helpbar {do
+   ($entry {elem [data] {OS_LIST selected_pos}})
+   {helpbar set_config
+      {if_else {== {type $entry} kDataArray}
+         {cond
+            ({&& {$this has (focused)} [focused]}
+               (
+                  (cancel helpbar_cancel)
+                  (confirm helpbar_confirmsetting)
+               )
+            )
+            ({find_elem (uOnOFF uSld uFakeSld) {elem {find $entry type} 1}}
+               (
+                  (cancel helpbar_back)
+                  (confirm helpbar_changesetting)
+               )
+            )
+            (TRUE
+               (
+                  (cancel helpbar_back)
+                  (confirm helpbar_select)
+               )
+            )
+         }
+         (
+            (cancel helpbar_back)
+            (confirm helpbar_select)
+         )
+      }
+   }
+}}
+{func get_elem
+    ($array $data)
+    {do
+        ($elem)
+        ($notfound TRUE)
+        ($size {- {size $array} 1})
+        {while {&& $notfound {<= $elem $size}}
+            {if_else {== {elem $array $elem} $data}
+               {set $notfound FALSE}
+               {++ $elem}
+            }
+        }
+        $elem
+    }
+}
+{func next_elem
+   ($array $data)
+   {elem $array
+      {max
+         {min
+            {+ {get_elem $array $data} 1}
+            {- {size $array} 1}
+         }
+         0
+      }
+   }
+}
+{func prev_elem
+   ($array $data)
+   {elem $array
+      {max
+         {min
+            {- {get_elem $array $data} 1}
+            {- {size $array} 1}
+         }
+         0
+      }
+   }
+}
+{func clear_array
+   ($obj $name)
+   {while {size {$obj get_array $name}}
+      {$obj remove ($name 0)}
+   }
+}
+{func badcmp
+   ($s1 $s2)
+   {if_else {== $s1 $s2}
+      0
+      {do
+         ($i 0)
+         ($result 0)
+         ($max {max {strlen $s1} {strlen $s2}})
+            {while {< $i $max}
+               {do
+                  ($c1 {str_elem $s1 $i})
+                  ($c2 {str_elem $s2 $i})
+                  {unless {== $c1 $c2}
+                     {set $result
+                        {if_else {< {char_code $c1} {char_code $c2}}
+                           -1
+                           1
+                        }
+                     }
+                     {set $i $max}
+                  }
+               }
+               {++ $i}
+            }
+         $result
+      }
+   }
+}
+{func sti
+   ($str)
+   {switch $str
+      ("0" 0)   ("1" 1)   ("2" 2)   ("3" 3)   ("4" 4)
+      ("5" 5)   ("6" 6)   ("7" 7)   ("8" 8)   ("9" 9)
+
+      ("a" 10)  ("b" 11)  ("c" 12)  ("d" 13)  ("e" 14)  ("f" 15)
+      ("g" 16)  ("h" 17)  ("i" 18)  ("j" 19)  ("k" 20)  ("l" 21)
+      ("m" 22)  ("n" 23)  ("o" 24)  ("p" 25)  ("q" 26)  ("r" 27)
+      ("s" 28)  ("t" 29)  ("u" 30)  ("v" 31)  ("w" 32)  ("x" 33)
+      ("y" 34)  ("z" 35)
+
+      ("A" 36)  ("B" 37)  ("C" 38)  ("D" 39)  ("E" 40)  ("F" 41)
+      ("G" 42)  ("H" 43)  ("I" 44)  ("J" 45)  ("K" 46)  ("L" 47)
+      ("M" 48)  ("N" 49)  ("O" 50)  ("P" 51)  ("Q" 52)  ("R" 53)
+      ("S" 54)  ("T" 55)  ("U" 56)  ("V" 57)  ("W" 58)  ("X" 59)
+      ("Y" 60)  ("Z" 61)
+
+      {fail {sprint "can't decode " $str}}
+   }
+}
+{func its
+   ($int)
+   {switch $int
+      (0 "0")   (1 "1")   (2 "2")   (3 "3")   (4 "4")
+      (5 "5")   (6 "6")   (7 "7")   (8 "8")   (9 "9")
+
+      (10 "a")  (11 "b")  (12 "c")  (13 "d")  (14 "e")  (15 "f")
+      (16 "g")  (17 "h")  (18 "i")  (19 "j")  (20 "k")  (21 "l")
+      (22 "m")  (23 "n")  (24 "o")  (25 "p")  (26 "q")  (27 "r")
+      (28 "s")  (29 "t")  (30 "u")  (31 "v")  (32 "w")  (33 "x")
+      (34 "y")  (35 "z")
+
+      (36 "A")  (37 "B")  (38 "C")  (39 "D")  (40 "E")  (41 "F")
+      (42 "G")  (43 "H")  (44 "I")  (45 "J")  (46 "K")  (47 "L")
+      (48 "M")  (49 "N")  (50 "O")  (51 "P")  (52 "Q")  (53 "R")
+      (54 "S")  (55 "T")  (56 "U")  (57 "V")  (58 "W")  (59 "X")
+      (60 "Y")  (61 "Z")
+
+      {fail {sprint "can't encode " $str}}
+   }
+}
+{func siti
+   ($str)
+   {do
+      ($result)
+      ($len {strlen $str})
+      {foreach_int $elem 0 $len
+         {set $result {+ {* $result 10} {sti {str_elem $str $elem}}}}
+      }
+      $result
+   }
+}
+{func sftf
+   ($str)
+   {do
+      ($dotpos {str_elemof $str "."})
+      {if_else $dotpos
+         {do
+            ($fracpart {substr $str {+ $dotpos 1} {strlen $str}})
+            {+
+               {siti {substr $str 0 $dotpos}}
+               {/
+                  {siti $fracpart}
+                  {pow 10 {strlen $fracpart}}
+               }
+            }
+         }
+         {siti $str}
+      }
+   }
+}
+{func str_elemof
+   ($str $char)
+   {do
+      ($len {strlen $str})
+      ($found)
+      ($elem)
+      ($return)
+      {while {&& {! $found} {> $len $elem}}
+         {if_else {== {str_elem $str $elem} $char}
+            {do
+               {set $found TRUE}
+               {set $return $elem}
+            }
+            {++ $elem}
+         }
+      }
+      $return
+   }
+}
+{func pow
+   ($base $exp)
+   {do
+      ($return 1)
+      {foreach_int $i 0 $exp
+         {set $return {* $return $base}}
+      }
+      $return
+   }
+}
+#ifdef _SHIP
+{func print
+   ($s)
+   #ifdef HX_PS3
+   {run {sprintf "GD:/%d    %s    %d" {random_int 100 1000} {sprint $s} {random_int 100 1000}}}
+   #else
+   kDataUnhandled
+   #endif
+}
+{func printf
+   ($s $f)
+   {print {sprintf $s $f}}
+}
+{func print_array
+   ($array)
+   {print $array}
+}
+{func exit
+   {delete rnd} ; this calls an abort at least on ps3
+}
+{func fail
+   ($s)
+   {print $s}
+   {exit}
+}
+#endif
+{func update_controller_stuff
+   {foreach $pad (analog dualshock)
+      {set_elem
+         {find $syscfg joypad controller_mapping $pad} 1
+         {switch $pad_map
+            (0 joypad)
+            #ifdef HX_XBOX
+            (1 ro_guitar_xbox)
+            #else
+            (1 hx_guitar_ps3)
+            #endif
+            (2 ro_guitar_ps3)
+            (3 guitar)
+            #ifdef HX_XBOX
+            (4 hx_drums_xbox)
+            #else
+            (4 hx_drums_ps3)
+            #endif
+         }
+      }
+   }
+   {foreach $idk
+      (
+         hx_xbox
+         digital
+         analog
+         dualshock
+         stagekit_xbox
+      )
+      {set_elem {find $syscfg joypad instrument_mapping $idk} 1 $pad_inst}
+   }
+}
+{func apply_gfx_settings
+   {rnd set_sync $vsyncrate}
+   {$world iterate PostProc $p {with $p
+      {if_else {game is_loaded}
+         {set [emulate_fps] $emulatefps}
+         {set [emulate_fps] 60}
+      }
+      {if {&& {! $scrnoise} [noise_intensity]}
+         {set [noise_intensity] 0.0001}
+      }
+      {if {&& {! $scrbloom} [bloom_intensity]}
+         {set [bloom_intensity] 0.0001}
+      }
+      {if {&& {! $mbblend} [motion_blur_blend]}
+         {set [motion_blur_blend] 0.0001}
+      }
+   }}
+   {$world iterate WorldDir $wd
+      {$wd iterate CamShot $cs
+         {unless $fxdof
+            {$cs set use_depth_of_field FALSE}
+         }
+         {unless $camerashake
+            {foreach_int $i 0 {$cs size (keyframes)}
+               {$cs set (keyframes $i shake_noisefreq) 0}
+               {$cs set (keyframes $i shake_noiseamp) 0}
+               {$cs set (keyframes $i shake_maxangle x) 0}
+               {$cs set (keyframes $i shake_maxangle y) 0}
+            }
+         }
+      }
+   }
+   {if $bigmode {do
+      ($x) ($y) ($z)
+      {$world iterate Character $c
+         {$c iterate Mesh $m
+            {$m get_local_scale $x $y $z}
+            {$m set_local_scale
+               {* $x 2}
+               {* $y 2}
+               {* $z 2}
+            }
+         }
+      }
+   }}
+   {if $smallworld {do
+      ($x) ($y) ($z)
+      {$world iterate Mesh $m
+         {$m get_local_scale $x $y $z}
+         {$m set_local_scale
+            {/ $x 2}
+            {/ $y 2}
+            {/ $z 2}
+         }
+      }
+      {$world iterate RndDir $dir
+         {unless {$dir is_a Character}
+            {$dir iterate Mesh $m
+               {$m get_local_scale $x $y $z}
+               {$m set_local_scale
+                  {/ $x 2}
+                  {/ $y 2}
+                  {/ $z 2}
+               }
+            }
+         }
+      }
+   }}
+   {if $honestmode {do
+      ($array {array 0})
+      {$honestmilo iterate Tex $t
+         {push_back $array $t}
+      }
+      {$world iterate Mat $m
+         {$m set diffuse_tex {random_elem $array}}
+      }
+      {$world iterate RndDir $dir
+         {unless {$dir is_a Character}
+            {$dir iterate Mat $m
+               {$m set diffuse_tex {random_elem $array}}
+            }
+         }
+      }
+   }}
+   {if $hidechars
+      {$world iterate Character $c
+         {$c set_showing FALSE}
+      }
+   }
+}
+{func get_dir_from_player
+   ($player)
+   {{get_track_panel} find
+      {if_else {gamemode in_mode h2h}
+         {sprint "track_" {str_elem {{$player track} name} 5}}
+         {$player instrument}
+      }
+   }
+}
+#ifdef HX_NG
+   #include mod_settings_rw.dta
+#else
+   #include mod_settings_rw_wii.dta
+#endif

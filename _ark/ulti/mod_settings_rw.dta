@@ -1,0 +1,107 @@
+#ifdef HX_PS3
+   #define MOD_SETTINGS_PATH ("GD:/dev_hdd0/game/BLUS30050/USRDIR/gdrbu_settings.dta")
+#else
+   #define MOD_SETTINGS_PATH ("GAME:/gdrbu_settings.dta")
+#endif
+{new Object
+   mod_settings_rw
+   (vars (
+      skipintro
+      guitar_trackspeed
+      bass_trackspeed
+      drum_trackspeed
+      hwlength
+      scrbloom
+      camerashake
+      fxdof
+      scrnoise
+      emulatefps
+      vsyncrate
+      trkmuting
+      whammypb
+      misssounds
+      fcring
+      countdown
+      songtimer
+      kickbounce
+      pad_inst
+      pad_map
+      syncdifspeeds
+      songtitle
+      legacybass
+      blackbg
+      tiltsensor
+      prodrums
+      micdeploy
+      cnt_slot1
+      cnt_slot2
+      cnt_slot3
+      cnt_slot4
+      cnt_slot5
+      cnt_star
+      gems
+      smashers
+      gtrgem1
+      gtrgem2
+      gtrgem3
+      gtrgem4
+      gtrgem5
+      drmgem1
+      drmgem2
+      drmgem3
+      drmgem4
+      drmgem5
+      gtrsm1
+      gtrsm2
+      gtrsm3
+      gtrsm4
+      gtrsm5
+      gtrsus1
+      gtrsus2
+      gtrsus3
+      gtrsus4
+      gtrsus5
+      drms1
+      drms2
+      drms3
+      drms4
+   ))
+   (save_settings
+      {print "attempting to save mod settings"}
+      {do
+         ($array {array 0})
+         {foreach $s [vars]
+            {push_back $array {array ($s {eval_var $s})}}
+         }
+         #ifdef HX_PS3
+            {if {file_exists "GD:/dev_hdd0/game/BLUS30050/PARAM.SFO"}
+               {write_file MOD_SETTINGS_PATH $array}
+               {print "mod settings saved"}
+            }
+         #else
+            {write_file MOD_SETTINGS_PATH $array}
+            {print "mod settings saved"}
+         #endif
+      }
+   )
+   (load_settings
+      {if {file_exists MOD_SETTINGS_PATH}
+         {print "attempting to load mod settings"}
+         {do
+            ($array {read_file MOD_SETTINGS_PATH})
+            {foreach $s [vars]
+               {do
+                  ($var {find_exists $array $s})
+                  {if $var
+                     {print $var}
+                     {eval {` {set {, {var $s}} {elem $var 1}}}}
+                  }
+               }
+            }
+            {print "mod settings loaded"}
+            {update_controller_stuff}
+         }
+      }
+   )
+}
+{mod_settings_rw load_settings}

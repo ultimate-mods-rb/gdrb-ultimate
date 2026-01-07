@@ -1,0 +1,7 @@
+{new Object
+   mod_settings_rw
+   (vars ())
+   (save_settings kDataUnhandled)
+   (load_settings kDataUnhandled)
+}
+{mod_settings_rw load_settings}

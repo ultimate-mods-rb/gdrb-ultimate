@@ -1,0 +1,24 @@
+#include overshell.dta
+{new BandScreen
+   jukebox_game_screen
+   (panels
+      game
+      world_panel
+      world_movie_panel
+      coop_track_panel
+      sync_audio_net_panel
+   )
+   GAME_SCREEN_HANDLERS
+   (BUTTON_DOWN_MSG
+      {switch $raw_button
+         (kPad_Square {cycle_free_camera})
+         (kPad_Tri {toggle_time_paused})
+         kDataUnhandled
+      }
+   )
+   (poll
+      {beatmatch foreach_active_player $player
+         {$player set_crowd_rating 0.66}
+      }
+   )
+}
