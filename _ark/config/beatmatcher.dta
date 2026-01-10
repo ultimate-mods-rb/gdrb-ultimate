@@ -68,7 +68,7 @@
    (drum_velocity_to_db (0.0 -6.5 -3.5 -1.5 -1.0 -0.25 0.0))
    (drum_sample_attenuation -5.0)
    #endif
-   (whammy_enabled TRUE)
+   (whammy_enabled $whammypb)
    (auto_miss_sound_timeout_seconds 5.0)
    (auto_miss_sound_timeout_gems 5)
    (auto_miss_sound_timeout_gems_remote 10)

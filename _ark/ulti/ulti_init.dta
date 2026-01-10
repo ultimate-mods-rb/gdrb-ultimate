@@ -1,5 +1,6 @@
 {set $patched TRUE}
 {set $skipsplash TRUE}
+{set $skipintro TRUE}
 
 ;sets default track speed. 1.15 is 115%, 1.30 is 130% and so on.
 {set $guitar_trackspeed 1.00}
@@ -102,3 +103,8 @@
 #endif
 
 {set $cheat.no_cheat_display TRUE}
+
+{set $diff0 kDifficultyExpert}
+{set $diff1 kDifficultyExpert}
+{set $diff2 kDifficultyExpert}
+{set $diff3 kDifficultyExpert}

@@ -44,7 +44,15 @@
    #ifndef _SHIP
    {ui add_message_type session_mgr add_local_user_result_msg}
    #endif
-   {set $first_screen intro_movie_screen}
+   {set $first_screen
+      {if_else $skipintro
+         splash_screen
+         intro_movie_screen
+      }
+   }
+   #ifdef HX_PS3
+   {register_trophy}
+   #endif
    {ui my_init}
    {ui goto_screen $first_screen}
 )

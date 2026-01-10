@@ -1,7 +1,75 @@
+; this is done and works but hold off on enabling before beta
+;#define SAVE_SETTINGS (1)
+
+#ifdef SAVE_SETTINGS
 {new Object
    mod_settings_rw
-   (vars ())
+   (settings (
+      (1 scrbloom)
+      (2 camerashake)
+      (4 fxdof)
+      (8 scrnoise)
+      (16 {== $emulatefps 60} {set $emulatefps 60})
+      (32 trkmuting)
+      (64 whammypb)
+      (128 misssounds)
+      (256 fcring)
+      (512 songtimer)
+      (1024 kickbounce)
+      (2048 syncdifspeeds)
+      (4096 songtitle)
+      (8192 legacybass)
+      (16384 blackbg)
+      (32768 tiltsensor)
+      (65536 {== $pad_inst kControllerGuitar} {set $pad_inst kControllerGuitar})
+      (131072 {== $pad_inst kControllerDrum} {set $pad_inst kControllerDrum})
+      (262144 TRUE)
+   ))
+   (save_settings
+      {do
+         ($bitfield 0)
+         {foreach $setting [settings]
+            {if
+               {if_else {== {type {elem $setting 1}} kDataSymbol}
+                  {eval_var {elem $setting 1}}
+                  {eval {elem $setting 1}}
+               }
+               {|= $bitfield {elem $setting 0}}
+            }
+         }
+         {unless {== $bitfield {profile_mgr get_voice_chat_volume}}
+            {profile_mgr set_voice_chat_volume $bitfield}
+         }
+      }
+   )
+   (load_settings
+      {do
+         ($bitfield {profile_mgr get_voice_chat_volume})
+         {if {& $bitfield 262144}
+            {foreach $setting [settings]
+               {if_else {== {size $setting} 3}
+                  {if {& $bitfield {elem $setting 0}}
+                     {eval {elem $setting 2}}
+                  }
+                  {if {== {type {elem $setting 1}} kDataSymbol}
+                     {set_var {elem $setting 1} {& $bitfield {elem $setting 0}}}
+                  }
+               }
+            }
+            {passive_messages_panel queue_message mod_settings_loaded}
+         }
+      }
+   )
+   (save_load_all_complete_msg
+      {memcardmgr remove_sink $this}
+      {$this load_settings}
+   )
+}
+{memcardmgr add_sink mod_settings_rw (save_load_all_complete_msg)}
+#else
+{new Object
+   mod_settings_rw
    (save_settings kDataUnhandled)
    (load_settings kDataUnhandled)
 }
-{mod_settings_rw load_settings}
+#endif

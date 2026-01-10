@@ -3,7 +3,7 @@
    (swingAtHopo {swingAtHopo_callback})
    (miss
       ($user $slot)
-      {unless {gamemode has (disable_achivements)}
+      {unless {|| {! $misssounds} {gamemode has (disable_achivements)}}
          {do
             ($seq
                {switch {$user get_track_type}
@@ -24,7 +24,7 @@
    )
    (annoying_pass
       ($user $slot)
-      {unless {gamemode has (disable_achivements)}
+      {unless {|| {! $misssounds} {gamemode has (disable_achivements)}}
          {do
             ($seq
                {switch {$user get_track_type}

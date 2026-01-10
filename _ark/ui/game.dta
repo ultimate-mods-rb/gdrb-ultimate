@@ -175,7 +175,10 @@
    (file "../world/world.milo")
    (load_condition {! {song_mgr current_song_has_video}})
    (unload_async TRUE)
-   (enter {apply_gfx_settings})
+   (enter
+      {apply_gfx_settings}
+      {$this set_showing {! $blackbg}}
+   )
 }
 {new BranchableMoviePanel
    world_movie_panel

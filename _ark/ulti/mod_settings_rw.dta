@@ -15,6 +15,7 @@
       camerashake
       fxdof
       scrnoise
+      mbblend
       emulatefps
       vsyncrate
       trkmuting
@@ -27,12 +28,11 @@
       pad_inst
       pad_map
       syncdifspeeds
+      indvtrkspeeds
       songtitle
       legacybass
       blackbg
       tiltsensor
-      prodrums
-      micdeploy
       cnt_slot1
       cnt_slot2
       cnt_slot3
@@ -65,6 +65,10 @@
       drms2
       drms3
       drms4
+      diff0
+      diff1
+      diff2
+      diff3
    ))
    (save_settings
       {print "attempting to save mod settings"}

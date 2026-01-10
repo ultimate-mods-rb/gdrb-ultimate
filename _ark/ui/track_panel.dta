@@ -40,6 +40,52 @@
    (animate_track_out_fast)
    (animate_track_in_fast)
    (finish_load
+      {$this iterate TrackDir $dir
+         {with $dir
+            {unless $kickbounce
+               {set [kick_drummer_trig] {new EventTrigger empty}}
+            }
+            {foreach_int $i 0 5
+               {{new PropAnim {sprintf "gem_bak%d.anim" $i}} copy {sprintf "gem_mash%d.anim" $i} 0}
+            }
+            {foreach_int $i 0 5 {do
+               ($wid {sprintf "gem_mash%d.wid" $i})
+               ($color {eval_var {sprint gtrsm {+ $i 1}}})
+               {clear_array $wid meshes}
+               {$wid insert (meshes 0) {sprintf "gem_mash%d.mesh" $color}}
+               {{sprintf "gem_mash%d.anim" $i} copy {sprintf "gem_bak%d.anim" $color} 0}
+            }}
+            {foreach_int $i 1 5
+               {{new PropAnim {sprintf "drum_bak%d.anim" $i}} copy {sprintf "drum_mash%d.anim" $i} 0}
+               {{new PropAnim {sprintf "drum_bak%d_BRE.anim" $i}} copy {sprintf "drum_mash%d_BRE.anim" $i} 0}
+            }
+            {foreach_int $i 1 5 {do
+               ($wid {sprintf "drum_mash%d.wid" $i})
+               ($color
+                  {switch {eval_var {sprint drms $i}}
+                     (0 4)
+                     {eval_var {sprint drms $i}}
+                  }
+               )
+               {clear_array $wid meshes}
+               {$wid insert (meshes 0) {sprintf "drum_mash%d.mesh" $color}}
+               {{sprintf "drum_mash%d.anim" $i} copy {sprintf "drum_bak%d.anim" $color} 0}
+               {{sprintf "drum_mash%d_BRE.anim" $i} copy {sprintf "drum_bak%d_BRE.anim" $color} 0}
+            }}
+         }
+      }
+      {if {!= $gems rb2} {do
+         ($gems_dir {new RndDir gems_dir})
+         {switch $gems
+            #include ../ulti/track/gems/gems_scripting.dta
+         }
+      }}
+      {if {!= $smashers rb2} {do
+         ($smashers_dir {new RndDir smashers_dir})
+         {switch $smashers
+            #include ../ulti/track/smashers/smashers_scripting.dta
+         }
+      }}
       {$this set_showing FALSE}
       {$this set_track_out}
    )
@@ -139,9 +185,15 @@
       }
    )
    (do_stuff
-      {print "doing stuff\n"}
+      {print "doing stuff"}
       {if {&& {exists gems_dir} {gems_dir exists animate.trig}}
          {{gems_dir find animate.trig} trigger}
+      }
+      {beatmatch set_kick_autoplay
+         {&&
+            $autokick
+            {! {gamemode get online_play_required}}
+         }
       }
       {beatmatch foreach_active_player $player ;handle adding the appropriate callbacks to each player
          {do
@@ -152,6 +204,7 @@
             {$obj init $player}
          }
       }
+      {print "done stuff"}
    )
 )
 {new TrackPanel

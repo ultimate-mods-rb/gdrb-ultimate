@@ -84,6 +84,21 @@
    OVERSHELL_LIST_FILE
    (title os_mod)
    (data (
+      (os_autokick
+         (type uOnOFF)
+         (bool $autokick)
+         (block_ingame TRUE)
+         (sel_script
+            {toggle_var autokick}
+            {if $autokick
+               {passive_messages_panel queue_message autokick_warning}
+               {if {exists gamehldr}
+                  {gamehldr set achivements FALSE}
+                  {gamehldr set score_saving FALSE}
+               }
+            }
+         )
+      )
       (os_tiltsensor
          (type uOnOFF)
          (bool $tiltsensor)
@@ -103,11 +118,6 @@
          (type uOnOFF)
          (bool $misssounds)
          (sel_script {toggle_var misssounds})
-      )
-      (os_micdeploy
-         (type uOnOFF)
-         (bool $micdeploy)
-         (sel_script {toggle_var micdeploy})
       )
    ))
    (enter {os_setup_common})
@@ -145,36 +155,16 @@
          (bool $kickbounce)
          (sel_script {toggle_var kickbounce})
       )
-      (os_prodrums
-         (type uOnOFF)
-         (bool $prodrums)
-         (sel_script {toggle_var prodrums})
-      )
-      (os_colorshuffle
-         (type uOnOFF)
-         (bool $colorshuffle)
-         (sel_script {toggle_var colorshuffle})
-      )
       (os_fcring
          (type uOnOFF)
          (bool $fcring)
          (block_ingame TRUE)
          (sel_script {toggle_var fcring})
       )
-      (os_countdown
-         (type uOnOFF)
-         (bool $countdown)
-         (sel_script {toggle_var countdown})
-      )
       (os_songtimer
          (type uOnOFF)
          (bool $songtimer)
          (sel_script {toggle_var songtimer})
-      )
-      (os_videobgs
-         (type uOnOFF)
-         (bool $video_bgs)
-         (sel_script {toggle_var video_bgs})
       )
    ))
    (enter {os_setup_common})
@@ -400,10 +390,12 @@
          (type uNormal)
          (sel_script {pop_and_goto_screen overshell_gems_screen})
       )
+      #ifdef HX_NG ; very unstable currently. fix at some point!
       (os_smashers
          (type uNormal)
          (sel_script {pop_and_goto_screen overshell_smashers_screen})
       )
+      #endif
       (os_colors
          (type uNormal)
          (sel_script {pop_and_goto_screen overshell_colors_screen})
@@ -423,7 +415,7 @@
    overshell_gems_panel
    OVERSHELL_LIST_FILE
    (title os_gems)
-   (data (lrb rb3 rb2 rb1 tbrb gh2 gh3 ghwt ghwor ghl))
+   (data (rb2 rb1_ps2 rb2_wii rb3 tbrb lrb gh2 gh3 ghwt ghwor ghl))
    (enter {os_setup_common})
    (SELECT_MSG
       {set $gems {$component selected_sym}}
@@ -614,7 +606,7 @@
    overshell_smashers_panel
    OVERSHELL_LIST_FILE
    (title os_smashers)
-   (data (lrb rb2 rb1 rb1_alt gh3 ghwor))
+   (data (rb2 gh3 ghwor))
    (enter {os_setup_common})
    (SELECT_MSG
       {set $smashers {$component selected_sym}}
@@ -783,6 +775,13 @@
          (type uNormal)
          (sel_script {pop_and_goto_screen overshell_cheats_screen})
       )
+      #ifdef HX_NG
+      (os_skipintro
+         (type uOnOFF)
+         (bool $skipintro)
+         (sel_script {toggle_var skipintro})
+      )
+      #endif
       (os_reset_all
          (type uNormal)
          (sel_script
@@ -810,6 +809,11 @@
          (type uNormal)
          (sel_script {cycle_free_camera})
       )
+      (os_colorshuffle
+         (type uOnOFF)
+         (bool $colorshuffle)
+         (sel_script {toggle_var colorshuffle})
+      )
       (os_smallworld
          (type uOnOFF)
          (bool $smallworld)
@@ -835,11 +839,6 @@
          (type uOnOFF)
          (bool $hidechars)
          (sel_script {toggle_var hidechars})
-      )
-      (os_flashbang
-         (type uOnOFF)
-         (bool $flashbang)
-         (sel_script {toggle_var flashbang})
       )
    ))
    (enter {os_setup_common})

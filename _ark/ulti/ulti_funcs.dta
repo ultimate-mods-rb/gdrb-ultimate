@@ -608,6 +608,16 @@
       }
    }
 }
+{func insert_milo
+   ($dir $file)
+   {do
+      ($milo {load_objects $file})
+      {$milo delete_loader}
+      {reserve_to_fit $milo $dir 0}
+      {merge_dirs $milo $dir kMergeMerge}
+      {delete $milo}
+   }
+}
 #ifdef HX_NG
    #include mod_settings_rw.dta
 #else
