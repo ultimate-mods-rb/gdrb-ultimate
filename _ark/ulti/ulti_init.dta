@@ -108,3 +108,11 @@
 {set $diff1 kDifficultyExpert}
 {set $diff2 kDifficultyExpert}
 {set $diff3 kDifficultyExpert}
+
+{set $forcevenue off}
+{set $b_outfit off}
+{set $t_outfit off}
+{set $m_outfit off}
+{set $b_inst off}
+{set $t_inst off}
+{set $m_inst off}

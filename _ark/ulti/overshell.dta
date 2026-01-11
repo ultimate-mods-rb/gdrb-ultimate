@@ -840,6 +840,16 @@
          (bool $hidechars)
          (sel_script {toggle_var hidechars})
       )
+      (os_forcevenue
+         (type uFakeSld)
+         (fmt_type uNormal)
+         (var forcevenue)
+         (array (off VENUES random))
+      )
+      (os_forceoutfit
+         (type uNormal)
+         (sel_script {pop_and_goto_screen overshell_outfits_screen})
+      )
    ))
    (enter {os_setup_common})
    (BUTTON_DOWN_MSG {os_down_common})
@@ -850,4 +860,77 @@
    (back overshell_other_screen)
    (panels overshell_cheats_panel)
    (focus overshell_cheats_panel)
+}
+{new UIPanel
+   overshell_outfits_panel
+   OVERSHELL_LIST_FILE
+   (title os_forceoutfit)
+   (data (
+      (os_b_outfit
+         (type uFakeSld)
+         (fmt_type uNormal)
+         (var b_outfit)
+         (array [outfits])
+      )
+      (os_t_outfit
+         (type uFakeSld)
+         (fmt_type uNormal)
+         (var t_outfit)
+         (array [outfits])
+      )
+      (os_m_outfit
+         (type uFakeSld)
+         (fmt_type uNormal)
+         (var m_outfit)
+         (array [outfits])
+      )
+      (os_b_inst
+         (type uFakeSld)
+         (fmt_type uNormal)
+         (var b_inst)
+         (array [instruments])
+      )
+      (os_t_inst
+         (type uFakeSld)
+         (fmt_type uNormal)
+         (var t_inst)
+         (array [instruments])
+      )
+      (os_m_inst
+         (type uFakeSld)
+         (fmt_type uNormal)
+         (var m_inst)
+         (array [instruments])
+      )
+   ))
+   (outfits (off P9_OUTFITS random))
+   (instruments (
+      off
+      drum_ludwig
+      drum_dw
+      drum_leedy
+      bass_pbass_black
+      bass_pbass_burst
+      bass_pbass_white
+      guitar_6120
+      guitar_rh_gibson_j200
+      guitar_blue01
+      guitar_blue02
+      guitar_blue03
+      guitar_everly
+      bass_g3
+      guitar_lp_burst
+      guitar_lp_white
+      guitar_lp_yellow
+      guitar_es335
+   ))
+   (enter {os_setup_common})
+   (BUTTON_DOWN_MSG {os_down_common})
+   (SELECT_MSG {os_sel_common})
+}
+{new UIScreen
+   overshell_outfits_screen
+   (back overshell_cheats_screen)
+   (panels overshell_outfits_panel)
+   (focus overshell_outfits_panel)
 }
