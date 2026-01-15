@@ -3,6 +3,7 @@
 )
 (midi_parsers
    #include midi_parsers.dta
+   #include ../ulti/midi_parsers.dta
 )
 (callbacks
    (sixteenth_note

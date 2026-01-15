@@ -1,0 +1,39 @@
+{new MidiParser
+   end_of_song
+   (track_name EVENTS)
+   (init {set [end] 0} {set [end_ms] 0})
+   (text
+      {if {== $mp.val end}
+         {set [end] $mp.start}
+         {set [end_ms] {beat_to_seconds $mp.start}}
+      }
+   )
+}
+{if {gamemode get load_chars}
+   {new MidiParser
+      ulti_venue_parser
+      (track_name ULTI_VENUE)
+      (message_self TRUE)
+      (shot
+         ($s)
+         {$world iterate WorldDir $wd
+            {with $wd
+               {$p9director force_shot $s}
+            }
+         }
+      )
+      (pp
+         ($pp)
+         {$world set_force_postproc $pp 1}
+      )
+      (exec
+         ($a)
+         {$world iterate WorldDir $wd
+            {with $wd
+               {handle $a}
+            }
+         }
+      )
+      (text {$this add_message $mp.data})
+   }
+}

@@ -78,6 +78,9 @@
       kDataUnhandled
    )
    (game_over
+      {if $world 
+         {$world force_shot ""}
+      }
       #ifndef HX_WII
       {stagekit_reset}
       #endif
@@ -110,6 +113,9 @@
    (game_won_tie {$this game_won_common} kDataUnhandled)
    (game_won_finale {$this game_won_common} kDataUnhandled)
    (game_lost
+      {if $world 
+         {$world force_shot ""}
+      }
       {beatmatch set_realtime TRUE}
       {beatmatch foreach_active_player $p
          {$p on_game_lost}
