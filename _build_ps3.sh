@@ -10,7 +10,7 @@ EXCLUDES=( "*.bik" "*.*_wii" "*.xbvwii" "*.*_xbox" "*_out*" "*_dbg.milo*" "*_rt.
 
 TEMP_ARK="$PWD_ROOT/_temp_ark_ps3"
 
-SOURCES=( "$PWD_ROOT/_ark::." )
+SOURCES=( "$PWD_ROOT/_ark::." "$PWD_ROOT/_songs/songs_ng::songs" )
 
 # Build output location
 OUT_DIR="$PWD_ROOT/_build/ps3/USRDIR/gen"

@@ -1,0 +1,56 @@
+(allbymyself
+   (name "All By Myself")
+   (artist "Green Day")
+   (master TRUE)
+   (context 0)
+   (song
+      (name songs/allbymyself/allbymyself)
+      (tracks
+         (
+            (guitar (0 1))
+            (vocals (2 3))
+         )
+      )
+      (vocal_parts 2)
+      (pans (-1.00 1.00 -1.00 1.00))
+      (vols (0.00 0.00 0.00 0.00))
+      (cores (-1 -1 -1 -1))
+      (drum_solo (seqs (kick.cue snare.cue tom1.cue tom2.cue crash.cue)))
+      (drum_freestyle (seqs (kick.cue snare.cue hat.cue ride.cue crash.cue)))
+   )
+   (song_scroll_speed 2450)
+   (bank sfx/tambourine_bank.milo)
+   (anim_tempo kTempoSlow)
+   (preview 26000 56000)
+   (rank
+      (drum 0)
+      (guitar 139)
+      (bass 0)
+      (vocals 1)
+      (band 1)
+   )
+   (genre punk)
+   (format 10)
+   (version 1)
+   (song_id 537958001)
+   (song_length 85500)
+   (album_art TRUE)
+   (year_released 1994)
+   (album_name "Dookie")
+   (album_track_number 15)
+   (base_points 222785)
+   (game_origin greenday)
+   (downloaded FALSE)
+   (date_released
+      #ifdef HX_WII
+      "1994-01-01"
+      #else
+      "1994-02-01"
+      #endif
+   )
+   (date_recorded "1964-04-16")
+   (venue dookie)
+   ;(guide_pitch_volume -4.0)
+   ;(vocal_tonic_note 7)
+   (author "NothingChanges")
+)

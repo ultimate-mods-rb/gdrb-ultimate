@@ -27,6 +27,9 @@ jobs:
         run: |
           find . -name "*.*_ps3" -type f -delete
           find . -name "*.*_wii" -type f -delete
+      - name: Move songs_ng folder to _ark
+        run: |
+          mv _songs/songs_ng _ark/songs
       - name: Build ARK
         run: |
           dependencies/linux/arkhelper dir2ark ./_ark ./_build/xbox/gen -n "patch_xbox" -e -v 5 -s 4073741823
@@ -57,6 +60,9 @@ jobs:
           sed -i 's/LOCALBUILD/${{ env.COMMIT_SHA }}/g' _ark/ulti/locale_mod.dta
         env:
           COMMIT_SHA: ${{ env.COMMIT_SHA }}
+      - name: Move songs_ng folder to _ark
+        run: |
+          mv _songs/songs_ng _ark/songs
       - name: Remove Xbox and Wii files
         run: |
           find . -name "*.*_xbox" -type f -delete
