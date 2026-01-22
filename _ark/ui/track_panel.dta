@@ -2,7 +2,6 @@
 #define TRACK_PANEL_HANDLERS (
    (in_intro_outro_shot FALSE)
    (enter
-      {$this update_track_speeds}
       {game add_sink $this}
       {$this set_showing
          {'||'
