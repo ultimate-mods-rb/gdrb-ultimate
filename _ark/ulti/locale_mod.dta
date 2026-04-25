@@ -77,7 +77,7 @@
 (drum_sym "Drum")
 (vocals_sym "Vocals")
 #ifdef HX_PS3
-(os_pad_x "Cross")
+(os_pad_x "X")
 (os_pad_circle "Circle")
 (os_pad_square "Square")
 (os_pad_tri "Triangle")
